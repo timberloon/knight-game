@@ -5,6 +5,7 @@ class_name player
 @onready var state_machine: Node = $state_machine
 @export var health: int
 @onready var game_manager: Node = %GameManager
+@onready var coyote: Timer = $coyote_timer
 
 func _ready() -> void:
 	state_machine.init(self)

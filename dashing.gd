@@ -4,7 +4,6 @@ extends state
 @export var running_state:state
 @export var jumping_state:state
 @export var idle_state:state
-@export var taking_damage_state:state
 
 @onready var dash_time: Timer = $dash_time
 @onready var dash_cooldown: Timer = $dash_cooldown
@@ -36,9 +35,6 @@ func process_input(event:InputEvent)->state:
 	elif Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):
 		return idle_state
 	return null
-	
-func process_damage(event:damage_event)->state:
-	return taking_damage_state
 
 func _on_dash_time_timeout() -> void:
 	is_dashing = false

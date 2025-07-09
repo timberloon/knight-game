@@ -30,3 +30,4 @@ func process_frame(delta:float)->state:
 	
 func process_damage(event:damage_event)->state:
 	return null
+	

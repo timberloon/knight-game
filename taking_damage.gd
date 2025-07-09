@@ -15,7 +15,6 @@ func process_damage(event:damage_event)->state:
 		var e = event as damage_event
 		parent.health -= e.amount
 		hurt_sound.play()
-		#game_manager.damage(parent.health)
 	var direction = Input.get_axis("move_left","move_right")
 	if direction:
 		return running_state
