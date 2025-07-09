@@ -1,9 +1,8 @@
 extends Node
 
 var score = 0
-@onready var coincounter:Label
-@onready var healthcounter:Label
-
+@onready var coincounter: Label = $"../CanvasLayer/UI/coincounter"
+@onready var healthcounter: Label = $"../CanvasLayer/healthpanel/healthcounter"
 
 func addscore():
 	score+=1
@@ -12,6 +11,3 @@ func addscore():
 func damage(health:int):
 	healthcounter.text = str(health)
 	
-func set_labels(coinlabel: Label,healthlabel:Label) -> void:
-	coincounter = coinlabel
-	healthcounter = healthlabel

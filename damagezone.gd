@@ -8,12 +8,15 @@ var in_cooldown = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if not in_cooldown:
-		var e = damage_event.new(damage)
-		state_machine.custom_event(e)
+		body.animated_sprite.play("damage")
+		body.health -= damage
+		damage_sound.play()
 		in_cooldown = true
+		body.damage()
 		cooldown.start()
 		if body.health <= 0:
 				body.get_node("CollisionShape2D").queue_free()
+				damage_sound.play()
 				body.velocity.y = -200.0
 				Engine.time_scale = 0.5
 				death_timer.start()

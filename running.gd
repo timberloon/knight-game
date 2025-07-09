@@ -14,7 +14,7 @@ func process_input(event:InputEvent)->state:
 		return jump_state
 	if Input.is_action_just_pressed("dash"):
 		return dash_state
-	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_left"):
+	if Input.is_action_just_released("move_right") or Input.is_action_just_released("move_left"):
 		return idle_state 
 	return null 
 	
