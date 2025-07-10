@@ -32,7 +32,3 @@ func process_input(event:InputEvent)->void:
 	if new_state:
 		change_state(new_state)
 		print("changed to "+ str(new_state))
-
-func custom_event(event:damage_event):
-	curr_state.process_damage(event)	
-	print("changed to 'taking damage")

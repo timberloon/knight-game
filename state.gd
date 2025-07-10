@@ -12,6 +12,7 @@ var SPEED = 100
 var can_jump = true
 var can_dash = true
 var is_dashing = false
+var one_dash = true
 
 func enter()->void:
 	parent.animated_sprite.play(animation)
@@ -26,8 +27,5 @@ func process_physics(delta:float)->state:
 	return null
 	
 func process_frame(delta:float)->state:
-	return null
-	
-func process_damage(event:damage_event)->state:
 	return null
 	

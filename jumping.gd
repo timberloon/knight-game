@@ -8,6 +8,8 @@ extends state
 
 func enter()->void:
 	super()
+	if parent.is_on_floor():
+		jump()
 
 func process_physics(delta:float)->state:
 	var direction = Input.get_axis("move_left", "move_right")
@@ -16,24 +18,32 @@ func process_physics(delta:float)->state:
 	else:
 		parent.velocity.x = move_toward(parent.velocity.x, 0, SPEED)
 		
-	if can_jump and parent.is_on_floor():
+		
+	if can_jump and parent.coyote_running:
+		if parent.coyote_running:
+			print("coyote jump")
+			parent.coyote.stop()
+		else: print("normal jump")
 		parent.velocity.y = 0
 		jump()
 	if not can_jump and parent.is_on_floor():
 		can_jump = true
-	if not parent.is_on_floor() and parent.coyote.is_stopped() and can_jump:
-		parent.coyote.start()
-	return null
+		
+		
+	if direction:
+		return running_state
+	else:
+		return idle_state
 
 func process_input(event:InputEvent)->state:
 	if Input.is_action_just_pressed("dash"):
+		one_dash = true
 		return dashing_state
 	return null
 	
 func jump()->void:
 	parent.velocity.y = jump_velocity
+	parent.hit_ground = false
+	parent.coyote_running = false
 	can_jump = false
 	jump_sound.play()
-
-func _on_coyote_timer_timeout() -> void:
-	can_jump = false
