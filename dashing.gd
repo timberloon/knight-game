@@ -7,18 +7,13 @@ extends state
 
 @onready var dash_time: Timer = $dash_time
 @onready var dash_cooldown: Timer = $dash_cooldown
-@onready var dash_sound: AudioStreamPlayer2D = $dash_sound
+@onready var dash_sound: AudioStreamPlayer = $dash_sound
+var direction:int
 
 func enter():
 	super()
-
-func process_physics(delta:float)->state:
-	if is_dashing:
-		return null
-	var direction = Input.get_axis("move_left", "move_right")
-	if not direction:
-		return idle_state
-	if Input.is_action_just_pressed("dash") and can_dash and one_dash:
+	direction = Input.get_axis("move_left", "move_right")
+	if can_dash and one_dash:
 		parent.velocity.x = direction * dash_speed
 		if parent.velocity.x != 0:
 			dash_sound.play()
@@ -26,6 +21,14 @@ func process_physics(delta:float)->state:
 		can_dash = false
 		dash_cooldown.start()
 		dash_time.start()
+
+func process_physics(delta:float)->state:
+	if is_dashing:
+		return null
+	direction = Input.get_axis("move_left", "move_right")
+	if not direction:
+		return idle_state
+
 	if not is_dashing: return running_state
 	return null
 func process_input(event:InputEvent)->state:

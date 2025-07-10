@@ -4,7 +4,7 @@ extends state
 @export var running_state:state
 @export var idle_state:state
 @export var dashing_state:state
-@onready var jump_sound: AudioStreamPlayer2D = $jumping_sound
+@onready var jump_sound: AudioStreamPlayer = $jumping_sound
 
 func enter()->void:
 	super()
@@ -20,10 +20,6 @@ func process_physics(delta:float)->state:
 		
 		
 	if can_jump and parent.coyote_running:
-		if parent.coyote_running:
-			print("coyote jump")
-			parent.coyote.stop()
-		else: print("normal jump")
 		parent.velocity.y = 0
 		jump()
 	if not can_jump and parent.is_on_floor():

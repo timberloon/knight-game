@@ -16,6 +16,7 @@ var one_dash = true
 
 func enter()->void:
 	parent.animated_sprite.play(animation)
+	print("playing animation-"+str(animation))
 
 func exit()->void:
 	pass
