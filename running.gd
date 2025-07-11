@@ -13,6 +13,7 @@ func process_input(event:InputEvent)->state:
 		one_dash = true
 		return dash_state
 	if Input.is_action_pressed("jump"):
+		parent.in_air = true
 		return jump_state
 	if Input.is_action_just_released("move_right") or Input.is_action_just_released("move_left"):
 		return idle_state 
@@ -28,8 +29,6 @@ func process_physics(delta:float)->state:
 		parent.velocity.x = direction * SPEED
 	else:
 		parent.velocity.x = move_toward(parent.velocity.x, 0, SPEED)
-	if not parent.is_on_floor() and parent.coyote.is_stopped() and can_jump:
-		parent.coyote.start()
 	if parent.is_on_floor() and not parent.was_on_floor and Input.is_action_pressed("jump"):
 		return jump_state
 	parent.was_on_floor = parent.is_on_floor()

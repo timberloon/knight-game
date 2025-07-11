@@ -7,6 +7,7 @@ extends state
 @onready var jump_sound: AudioStreamPlayer = $jumping_sound
 
 func enter()->void:
+	parent.in_air = true
 	super()
 	if parent.is_on_floor():
 		jump()
@@ -17,19 +18,22 @@ func process_physics(delta:float)->state:
 		parent.velocity.x = direction * SPEED
 	else:
 		parent.velocity.x = move_toward(parent.velocity.x, 0, SPEED)
-		
-		
-	if can_jump and parent.coyote_running:
+
+
+	if parent.coyote_running:
 		parent.velocity.y = 0
+		parent.in_air = true
 		jump()
-	if not can_jump and parent.is_on_floor():
-		can_jump = true
-		
-		
-	if direction:
+		print("coyote jump")
+
+
+	if direction and parent.is_on_floor():
+		parent.in_air = false
 		return running_state
-	else:
+	elif not direction and parent.is_on_floor():
+		parent.in_air = false
 		return idle_state
+	return null
 
 func process_input(event:InputEvent)->state:
 	if Input.is_action_just_pressed("dash"):
@@ -41,5 +45,4 @@ func jump()->void:
 	parent.velocity.y = jump_velocity
 	parent.hit_ground = false
 	parent.coyote_running = false
-	can_jump = false
 	jump_sound.play()

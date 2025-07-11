@@ -14,6 +14,7 @@ func process_input(event:InputEvent)->state:
 	if direction != 0:
 		return running_state
 	if Input.is_action_pressed("jump"):
+		parent.in_air = true
 		return jumping_state
 	return null
 
